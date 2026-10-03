@@ -1,0 +1,10 @@
+import { test, expect } from '@fixtures';
+
+test.describe('API FEATURE_NAME', () => {
+  test('SCENARIO_NAME', async ({ api }) => {
+    const { httpStatus, body } = await api.products.getProductsList();
+    // Automation Exercise: prefer body.responseCode over httpStatus alone
+    expect(httpStatus).toBe(200);
+    expect(body.responseCode).toBe(200);
+  });
+});

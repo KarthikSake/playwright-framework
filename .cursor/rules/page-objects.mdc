@@ -1,0 +1,15 @@
+---
+description: Conventions for Playwright page objects
+globs: src/pages/**
+---
+
+# Page objects
+
+- One class per page; extend `BasePage`.
+- Multi-strategy configs **only for fragile controls** (≥2 real alternatives) in `src/pages/locators/<page>.locators.ts`.
+- Stable `#id`, `data-qa`, or scoped CSS: `() => this.page.locator(...)` on the page — do not wrap in `.or()`.
+- Fallbacks: ordered `strategies` → `locatorFrom` / `this.loc()` builds Playwright `.or()` + `.first()`.
+- Strategy order: `role` → `placeholder` / `label` → `css` → `text` (optional `testId`). Use `root` to scope forms.
+- Shared UI (e.g. cart modal): one file under `src/pages/locators/`, import from both pages.
+- Call `dismissBlockingOverlays()` before fragile clicks if ads/consent may block.
+- Register new pages in `src/fixtures/index.ts` with `pageFixture(XPage)`.

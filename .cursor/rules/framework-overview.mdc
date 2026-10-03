@@ -1,0 +1,28 @@
+---
+description: Framework architecture, import paths, and non-negotiable conventions
+alwaysApply: true
+---
+
+# Framework overview
+
+- Target: https://automationexercise.com (API under `/api/*`)
+- Stack: Playwright + TypeScript, Chromium only
+- Layout: `src/{api,config,factories,fixtures,locators,pages}` + `tests/{api,ui,flows}`
+
+## Imports
+
+```ts
+import { test, expect } from '@fixtures';
+import { buildUser } from '@factories/user.factory';
+import type { LocatorConfig } from '@locators';
+```
+
+Aliases: `@api`, `@pages`, `@factories`, `@fixtures`, `@config`, `@locators`.
+
+## Must follow
+
+- Specs use fixtures for pages, `api`, and factories — no ad-hoc `new HomePage(page)`.
+- Assert API `responseCode` in the JSON body (HTTP is often 200 even for 201/400/404).
+- Unique emails per test; factory create/dispose.
+- Locators: config strategy arrays for **fragile** controls only + page getters (`this.loc`); stable `#id` / `data-qa` stay as `this.page.locator(...)`.
+- Read `AGENTS.md` before inventing a parallel structure.

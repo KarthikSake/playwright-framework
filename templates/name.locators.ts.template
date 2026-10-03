@@ -1,0 +1,11 @@
+import type { LocatorConfig } from '@locators';
+
+/** Fragile controls only — stable #id / data-qa stay as direct locators on the page. */
+export const NameLocators = {
+  exampleButton: {
+    strategies: [
+      { type: 'role', role: 'button', name: /Example/i },
+      { type: 'css', value: 'button.example' },
+    ],
+  } satisfies LocatorConfig,
+} as const;

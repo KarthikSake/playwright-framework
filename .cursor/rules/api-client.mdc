@@ -1,0 +1,14 @@
+---
+description: Conventions for API client usage
+globs: src/api/**/*.ts,tests/api/**
+---
+
+# API client
+
+- Automation Exercise returns HTTP 200 with body `responseCode` (201/400/404/…).
+- Always expose and assert `body.responseCode`; do not treat HTTP status as the business result.
+- Use `postForm` / `deleteForm` / `putForm` for endpoints that expect `application/x-www-form-urlencoded`.
+- Serialize payloads with `toForm()` from `@api/types` — no `as Record` casts.
+- Keep endpoint paths **relative** (no leading `/`) when `API_BASE_URL` includes `/api` — Playwright absolute paths drop the `/api` prefix.
+- Keep endpoint methods thin (`AuthApi`, `ProductsApi`); parsing / `assertResponseCode` / `toForm` live in `types.ts`.
+- Factories use `assertResponseCode`; specs may also `expect(body.responseCode)`.

@@ -1,0 +1,13 @@
+import { test, expect } from '@fixtures';
+
+test.describe('FEATURE_NAME', () => {
+  test('SCENARIO_NAME', async ({
+    homePage,
+    // productsPage,
+    // userFactory,
+  }) => {
+    await homePage.open();
+    // Arrange / Act using fixture page intents
+    // Assert with expect(...)
+  });
+});

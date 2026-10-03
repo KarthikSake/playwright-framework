@@ -1,0 +1,15 @@
+---
+description: Conventions for Playwright specs
+globs: tests/**/*.ts
+---
+
+# Tests
+
+- Import `test` and `expect` from `@fixtures` only.
+- Place specs in `tests/api`, `tests/ui`, or `tests/flows` by intent.
+- Use `userFactory.create()` for seeded users; rely on fixture teardown for delete.
+- For UI signup: `buildUser()` → after account created call `userFactory.track(user)`; untrack after explicit delete.
+- API checks: `expect(body.responseCode).toBe(...)`.
+- Assert sharp oracles (address fragment, product name continuity, brand on detail) — avoid vacuous expects.
+- Depth over breadth — extend existing critical flows rather than spraying shallow smoke tests.
+- Copy from `templates/*.template` when starting a new file.

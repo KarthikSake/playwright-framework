@@ -1,0 +1,10 @@
+# Factories
+
+- `UserFactory.build()` / `buildUser()` — unique user via `@faker-js/faker` + UUID token; no API call.
+- `TestUser` is `CreateAccountPayload` — one typed shape for API + UI.
+- `UserFactory.create()` — register via API (`assertResponseCode` 201) and `track()` for dispose.
+- `UserFactory.track()` / `untrack()` — UI-created users or tests that delete themselves mid-spec.
+- `UserFactory.dispose()` — deletes tracked users; fails the suite if delete is not 200/404.
+- Emails/passwords must use `uniqueToken()`; never hard-code shared accounts.
+- `buildPayment()` — checkout card data (Visa test PAN); pass explicitly from specs/flows.
+- `ProductFactory`: cache `productsList`; `defaultSearchTerm()` / `randomSearchTerm()` / `pickRandom()`.

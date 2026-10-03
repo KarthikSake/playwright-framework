@@ -1,0 +1,32 @@
+import { expect } from '@playwright/test';
+import { BasePage } from '@pages/base.page';
+import { NameLocators } from '@pages/locators/name.locators';
+
+/**
+ * PAGE_DESCRIPTION
+ *
+ * Locator configs: src/pages/locators/<name>.locators.ts (fragile controls only).
+ * Stable #id / data-qa / scoped CSS: direct this.page.locator(...) on the page.
+ * Register this class in src/fixtures/index.ts via pageFixture(NamePage).
+ */
+export class NamePage extends BasePage {
+  /** Example fragile CTA — multi-strategy config. */
+  exampleButton = () => this.loc(NameLocators.exampleButton);
+
+  /** Example stable field — direct locator. */
+  readyHeading = () => this.page.locator('h2.title');
+
+  async open(): Promise<void> {
+    await this.goto('/PATH');
+    await this.dismissBlockingOverlays();
+  }
+
+  async exampleIntent(): Promise<void> {
+    await this.dismissBlockingOverlays();
+    await this.exampleButton().click();
+  }
+
+  async expectReady(): Promise<void> {
+    await expect(this.readyHeading()).toBeVisible();
+  }
+}
